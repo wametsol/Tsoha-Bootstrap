@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+	
+
+	<h1>Askareet</h1>
+	
+
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr>
+				<th>Askareen nimi</th>
+				<th>Mihin mennessä</th>
+				<th>Tilanne ja tärkeysaste</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><a href="{{base_path}}/askarelista/1">Kukkien kastelu</a></td>
+				<td>15.12</td>
+				<td><label class="label label-danger">Kesken</label></td>
+				<th><a class="btn btn-default btn-sm" href="{{base_path}}/askarelista/1/muokkaa">Muokkaa</a></th>
+			</tr>
+			<tr>
+				<td>M</td>
+				<td>L</td>
+			</tr>
+		</tbody>
+		</table>
+		{% endblock %}
