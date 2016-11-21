@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+	<div class="alert alert-success">
+		{{message}}
+		</div>
+	<h1>{{askare.nimi}}</h1>
+	<p>
+		<button class="btn btn-danger">Poista</button>
+		<a class="btn btn-default" href="{{base_path}}/askare/{{askare.id}}/edit">Muokkaa</a>
+	</p>
+
+	<ul>
+		<li><strong>Mihin mennessä:</strong>{{askare.paivamaara}}</li>
+		<li><strong>Tilanne ja tärkeys:</strong><label class="label label-danger">?TOTEUTUS KESKEN?</label></li>
+	</ul>
+
+	<p>
+		{{askare.kuvaus}}
+	</p>
+{% endblock %}

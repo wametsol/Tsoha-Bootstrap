@@ -7,9 +7,15 @@
    	  View::make('suunnitelmat/etusivu.html');
     }
 
+
     public static function sandbox(){
-      // Testaa koodiasi täällä
-      View::make('helloworld.html');
+      Askare::luoKukka();
+      $kukat = Askare::haeYksi(1);
+      $askareet = Askare::haeKaikki();
+
+      Kint::dump($askareet);
+      //Kint::dump($kukat);
+      //View::make('helloworld.html');
     }
 
     public static function login(){

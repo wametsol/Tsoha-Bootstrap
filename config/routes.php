@@ -23,3 +23,20 @@
   $routes->get('/askarelista/1/muokkaa', function(){
   	HelloWorldController::muokkaa();
   });
+
+  $routes->get('/askare', function(){
+    AskareController::index();
+  });
+
+  $routes->post('/askare', function(){
+    AskareController::talleta();
+  });
+
+  $routes->get('/askare/new', function(){
+    AskareController::uusi();
+  });
+
+
+  $routes->get('/askare/:id', function($id){
+    AskareController::show($id);
+  });
