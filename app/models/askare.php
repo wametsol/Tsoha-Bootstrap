@@ -17,10 +17,11 @@
 			
 		}
 
-		public static function haeKaikki(){
-			$query = DB::connection()->prepare("SELECT * FROM Askare");
+		public static function haeKaikki($id){
 
-			$query->execute();
+			$query = DB::connection()->prepare("SELECT * FROM Askare WHERE kayttaja_id = :id");
+
+			$query->execute(array('id' => $id));
 
 			$rows = $query->fetchAll();
 			$askareet = array();
@@ -58,12 +59,32 @@
 
 		}
 		public function tallenna(){
-			$query = DB::connection()->prepare('INSERT INTO Askare (nimi, paivamaara, kuvaus) VALUES (:nimi, :paivamaara, :kuvaus, 2) RETURNING id');
-			$query->execute(array('nimi' => $this->nimi, 'paivamaara' => $this->paivamaara, 'kuvaus' => $this->kuvaus));
+			$query = DB::connection()->prepare('INSERT INTO Askare (kayttaja_id, nimi, paivamaara, kuvaus) VALUES (:kayttaja_id, :nimi, :paivamaara, :kuvaus) RETURNING id');
+			$query->execute(array('kayttaja_id' => $this->kayttaja_id,'nimi' => $this->nimi, 'paivamaara' => $this->paivamaara, 'kuvaus' => $this->kuvaus));
 			$row = $query->fetch();
 			//Kint::trace();
 			//Kint::dump($row);
 			$this->id = $row['id'];
+
+		}
+
+		public function paivita(){
+			
+			$query = DB::connection()->prepare('UPDATE Askare SET nimi = :nimi, paivamaara = :paivamaara, kuvaus = :kuvaus WHERE id = :id');
+			
+			$query->execute(array('id' => $this->id,'nimi' => $this->nimi, 'paivamaara' => $this->paivamaara, 'kuvaus' => $this->kuvaus));
+			
+			//Kint::trace();
+			//Kint::dump($row);
+			//$this->id = $row['id'];
+		}
+
+		public function tuhoa($id){
+
+			$query = DB::connection()->prepare('DELETE FROM Askare WHERE id = :id');
+		
+			$query->execute(array('id' => $id));
+			
 
 		}
 

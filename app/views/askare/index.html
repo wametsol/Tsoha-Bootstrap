@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Käyttäjän muistilista</h1>
+{% if user_logged_in %}
+<h1>Käyttäjän {{user_logged_in.nimi}} muistilista</h1>
+{% endif %}
 
 <p>
 	<a href="{{base_path}}/askare/new" class="btn btn-success">Uusi askare</a>
@@ -22,7 +24,7 @@
 			<td><a href="{{base_path}}/askare/{{askare.id}}">{{askare.nimi}}</td>
 			<td>{{askare.paivamaara}}</td>
 			<td>{{askare.kuvaus}}</td>
-			<td><a class="btn btn-default btn-sm" href="{{base_path}}/askare/{{askare.id}}/edit">Muokkaa</td>
+			<td><a class="btn btn-default btn-sm" href="{{base_path}}/askare/{{askare.id}}/muokkaa">Muokkaa<a class="btn btn-danger btn-sm" href="{{base_path}}/askare/{{askare.id}}/poista">Poista</td>
 		</tr>
 		{% endfor %}
 	</tbody>

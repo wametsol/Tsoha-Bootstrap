@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="alert alert-danger">
+		{{virhe}}
+		</div>
+<h1>Muokkaa askaretta</h1>
+<p>Pakollinen tieto *</p>
+
+<form method="post" action="{{base_path}}/askare/{{askare.id}}/muokkaa">
+<div class="form-group">
+	<label>Nimi *</label>
+	<input type="text" name="nimi" class="form-control" value="{{askare.nimi}}">
+</div>
+
+<div class="form-group">
+	<label>Mihin mennessä</label>
+	<input type="text" name="paivamaara" class="form-control" value="{{askare.paivamaara}}">
+</div>
+
+<div class="form-group">
+	<label>Kuvaus</label>
+	<input type="text" name="kuvaus" class="form-control" value="{{askare.kuvaus}}">
+</div>
+
+<div class="form-group">
+	<button type="submit" class="btn btn-primary">Talleta muutokset</button>
+</div>
+</form>
+{% endblock %}

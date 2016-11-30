@@ -9,19 +9,27 @@
   });
 
   $routes->get('/login', function(){
-  	HelloWorldController::login();
+  	UserController::login();
   });
 
-  $routes->get('/askarelista', function(){
-  	HelloWorldController::askarelista();
+  $routes->post('/login', function(){
+  	UserController::handle_login();
   });
 
   $routes->get('/askarelista/1', function(){
   	HelloWorldController::askare();
   });
 
-  $routes->get('/askarelista/1/muokkaa', function(){
-  	HelloWorldController::muokkaa();
+  $routes->post('/askare/:id/muokkaa', function($id){
+    AskareController::paivita($id);
+  });
+
+  $routes->get('/askare/:id/poista', function($id){
+    AskareController::poista($id);
+  });
+
+  $routes->get('/askare/:id/muokkaa', function($id){
+  	AskareController::muokkaa($id);
   });
 
   $routes->get('/askare', function(){

@@ -1,10 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
+<div class="alert alert-danger">
+		{{virhe}}
+		</div>
 <h1>Lisää askare muistilistaan</h1>
+<p>Pakollinen tieto *</p>
 
 <form method="post" action="{{base_path}}/askare">
 <div class="form-group">
-	<label>Nimi</label>
+	<label>Nimi *</label>
 	<input type="text" name="nimi" class="form-control">
 </div>
 

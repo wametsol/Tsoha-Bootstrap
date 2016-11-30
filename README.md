@@ -1,5 +1,9 @@
 # Tietokantasovelluksen esittelysivu
 
+## Testausta varten
+* Username : Teppo
+* Password : tulppu
+
 Yleisiä linkkejä:
 
 * [Linkki sovellukseeni](https://wame.users.cs.helsinki.fi/tsoha)
