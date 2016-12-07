@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
+
+<div class="alert alert-success">
+		{{message}}
+		{{error}}
+		</div>
 	<h1>Kirjaudu sisään</h1>
 
 	<form method="post" action="{{base_path}}/login">
@@ -16,6 +21,6 @@
 		<button type="submit" class="btn btn-primary">Kirjaudu sisään</button>
 	</form>
 	<h2>Ei tunnusta? Rekisteröidy täältä</h2>
-	<button class="btn btn-success">Luo tunnus</button>
+	<a class="btn btn-success" href="{{base_path}}/register">Luo tunnus</a>
 
 	{% endblock %}

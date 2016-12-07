@@ -41,6 +41,19 @@ class User extends BaseModel{
 			return null;
 
 		}
+
+		public function tuhoa($id){
+
+			$query = DB::connection()->prepare('DELETE FROM Kayttaja WHERE id = :id');
+		
+			$query->execute(array('id' => $id));
+			
+
+		}
+
+		
+
+
 			
 			
 		}
