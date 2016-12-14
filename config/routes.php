@@ -1,12 +1,25 @@
 <?php
 
   $routes->get('/', function() {
-    HelloWorldController::index();
+    UserController::etusivu();
   });
 
-  $routes->get('/hiekkalaatikko', function() {
-    HelloWorldController::sandbox();
+  $routes->get('/uusikategoria', function() {
+    KategoriaController::luoKategoria();
   });
+
+  $routes->get('/kategoria', function() {
+    KategoriaController::listaa();
+  });
+
+  $routes->post('/uusikategoria', function() {
+    KategoriaController::talleta();
+  });
+
+  $routes->post('/kategoria', function() {
+    KategoriaController::poistaKategoriat();
+  });
+
 
   $routes->get('/login', function(){
   	UserController::login();
@@ -30,6 +43,23 @@
 
   $routes->get('/askare/:id/muokkaa', function($id){
   	AskareController::muokkaa($id);
+  });
+
+  $routes->get('/askare/:id/kategoria', function($id){
+    AskareController::kategorianLisays($id);
+  });
+
+  $routes->get('/askare/:id/poistakategoriat', function($id){
+    AskareController::kategoriatPois($id);
+  });
+
+  $routes->post('/askare/:id/kategoria', function($id){
+    AskareController::liitäKategoria($id);
+  });
+
+
+  $routes->get('/askare/:id/tarkeys', function($id){
+    AskareController::muutaTarkeys($id);
   });
 
   $routes->get('/askare', function(){

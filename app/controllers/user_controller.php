@@ -1,6 +1,11 @@
 <?php
 Class UserController extends BaseController{
 
+	public static function etusivu(){
+      
+   	  View::make('etusivut/etusivu.html');
+    }
+
 	public static function login(){
 		View::make('kayttaja/login.html');
 	}
@@ -15,7 +20,7 @@ Class UserController extends BaseController{
 		}else{
 			$_SESSION['user'] = $user->id;
 
-			Redirect::to('/askare', array('message' => 'Tervetuloa takaisin  '. $user->nimi .'!'));
+			Redirect::to('/askare', array('message' => 'Tervetuloa '. $user->nimi .'!'));
 		}
 	}
 
@@ -45,17 +50,13 @@ Class UserController extends BaseController{
 			'nimi' => $params['nimi'],
 			'salasana' => $params['salasana']
 			));
-
-		if($params['nimi'] != '' && strlen($params['nimi']) >=3 && $params['salasana'] != ''){
-			$query = DB::connection()->prepare('INSERT INTO Kayttaja (nimi, salasana) VALUES (:nimi, :salasana) RETURNING id');
-			$query->execute(array('nimi' => $params['nimi'],'salasana' => $params['salasana']));
-			$row = $query->fetch();
-
-		
-		Redirect::to('/login', array('message' => 'Tunnus luotu, voit nyt kirjautua!'));
+		$errors = $user->validate();
+		if(count($errors) > 0){
+		View::make('kayttaja/register.html', array('errors' => $errors));
 	}
 		else{
-		View::make('kayttaja/register.html', array('virhe' => 'Käyttäjänimen oltava vähintään 3 merkkiä ja salasana ei saa olla tyhjä'));
+			$user->tallennaKayttaja();
+			Redirect::to('/login', array('message' => 'Tunnus luotu, voit nyt kirjautua!'));
 		}
 	}
 
@@ -76,23 +77,21 @@ Class UserController extends BaseController{
 	public static function paivita($id){
 		self::check_logged_in();
 		$params = $_POST;
-		$tiedot = array(
+		$tiedot = new User(array(
 			'id' => $id,
-
 			'salasana' => $params['salasana']
-			);
-		//Kint::dump($params);
-		if($params['salasana'] != ''){
-			$query = DB::connection()->prepare('UPDATE Kayttaja SET salasana = :salasana WHERE id = :id');
-			
-			$query->execute(array('id' => $id,'salasana' => $params['salasana']));
+			));
 
-			
-		Redirect::to('/kayttaja', array('message' => 'Salasana vaihdettu!'));
-	}
-	else{
-		View::make('kayttaja/muokkaa.html', array('virhe' => 'Liian lyhyt salasana!'));
-	}
+		if(strlen($params['salasana']) >25 || strlen($params['salasana']) <5 ){
+				$errors[] = 'Salasanan oltava 5-25 merkkiä';
+				View::make('kayttaja/muokkaa.html', array('error' => 'Salasanan oltava 5-25 merkkiä', 'kayttaja' => $tiedot));
+			}
+		else{
+
+		
+			$tiedot->paivitys();
+			Redirect::to('/kayttaja', array('message' => 'Salasana vaihdettu'));
+		}
         }
 
 

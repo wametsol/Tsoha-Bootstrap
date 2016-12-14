@@ -12,7 +12,7 @@
 	<thead>
 		<tr>
 			<th>Nimi</th>
-			<th>Päivämäärä</th>
+			<th>Päivämäärä ja tärkeys</th>
 			<th>Kuvaus</th>
 			<th></th>
 		</tr>
@@ -22,9 +22,29 @@
 		{% for askare in askareet %}
 		<tr>
 			<td><a href="{{base_path}}/askare/{{askare.id}}">{{askare.nimi}}</td>
-			<td>{{askare.paivamaara}}</td>
+			<td>{{askare.paivamaara}}      
+				{%if askare.tarkeys == 0 %}
+					<label class="label label-info">Mitätön</label>
+				{% endif %}
+				{% if askare.tarkeys == 1 %}
+					<label class="label label-warning">Tärkeä</label>
+				{% endif %}
+			</td>
 			<td>{{askare.kuvaus}}</td>
-			<td><a class="btn btn-default btn-sm" href="{{base_path}}/askare/{{askare.id}}/muokkaa">Muokkaa<a class="btn btn-danger btn-sm" href="{{base_path}}/askare/{{askare.id}}/poista">Poista</td>
+			<td>
+				{%if askare.tarkeys == 0 %}
+					<a class="btn btn-warning btn-sm" href="{{base_path}}/askare/{{askare.id}}/tarkeys">Aseta tärkeäksi</a>
+				{% endif %}
+				{% if askare.tarkeys == 1 %}
+					<a class="btn btn-info btn-sm" href="{{base_path}}/askare/{{askare.id}}/tarkeys">Aseta mitättömäksi</a>
+				{% endif %}
+
+				<a class="btn btn-default btn-sm" href="{{base_path}}/askare/{{askare.id}}/muokkaa">Muokkaa<a class="btn btn-danger btn-sm" href="{{base_path}}/askare/{{askare.id}}/poista">Poista</a></a>
+				
+				</td>
+				
+
+
 		</tr>
 		{% endfor %}
 	</tbody>

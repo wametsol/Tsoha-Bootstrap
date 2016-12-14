@@ -2,7 +2,7 @@
 
 	class Askare extends BaseModel{
 	
-		public $id, $kayttaja_id, $nimi, $paivamaara, $kuvaus;
+		public $id, $kayttaja_id, $nimi, $paivamaara, $kuvaus, $tarkeys;
 
 		public function __construct($attributes){
 		parent::__construct($attributes);
@@ -33,11 +33,20 @@
 					'nimi' => $row['nimi'],
 					'paivamaara' => $row['paivamaara'],
 					'kuvaus' => $row['kuvaus'],
+					'tarkeys' => $row['tarkeys']
 					));
 				
 			}
 			return $askareet;
 
+		}
+		public static function haeKategoriat(){
+			$kategoriat = Kateaska::kategoriatByAskare($this->id);
+			return $kategoriat;
+		}
+
+		public static function uusiKategoria(){
+			
 		}
 
 		public static function haeYksi($id){
@@ -52,6 +61,7 @@
 					'nimi' => $row['nimi'],
 					'paivamaara' => $row['paivamaara'],
 					'kuvaus' => $row['kuvaus'],
+					'tarkeys' => $row['tarkeys']
 					));
 			return $askare;
 			}
@@ -86,6 +96,40 @@
 			$query->execute(array('id' => $id));
 			
 
+		}
+
+		public function muutaTarkeytesi(){
+			if($this->tarkeys == 0){
+				$uusiTarkeys = 1;
+			}
+			elseif ($this->tarkeys == 1) {
+				$uusiTarkeys = 0;
+			}
+
+			$query = DB::connection()->prepare('UPDATE Askare SET tarkeys = :tarkeys WHERE id = :id');
+			
+			$query->execute(array('id' => $this->id,'tarkeys' => $uusiTarkeys));
+			
+
+		}
+
+		public function validate(){
+			$errors = array();
+			if($this->nimi == '' || $this->nimi == null){
+				$errors[] = 'Nimi ei saa olla tyhjä!';
+			}
+			if(strlen($this->nimi) <= 2 || strlen($this->nimi) >=20){
+				$errors[] = 'Nimen oltava 2-20 merkkiä pitkä';
+			}
+			if(strlen($this->paivamaara) >=18){
+				$errors[] = 'Määräajan oltava alle 18 merkkiä';
+			}
+			if(strlen($this->kuvaus) >=350){
+				$errors[] = 'Kuvauksen oltava alle 350 merkkiä';
+			}
+
+
+			return $errors;
 		}
 
 

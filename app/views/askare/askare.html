@@ -1,19 +1,32 @@
 {% extends "base.html" %}
 {% import "macros/forms.html" as forms %}
 {% block content %}
-	<div class="alert alert-success">
-		{{message}}
-		</div>
+	
+
 	<h1>{{askare.nimi}}</h1>
 	<p>
-		{{forms.destroy_button("#{base_path}/askare/#{askare.id}/poista")}}
+		
 		<a class="btn btn-danger" href="{{base_path}}/askare/{{askare.id}}/poista">Poista</a>
 		<a class="btn btn-default" href="{{base_path}}/askare/{{askare.id}}/muokkaa">Muokkaa</a>
+		<a class="btn btn-info" href="{{base_path}}/askare/{{askare.id}}/kategoria">Lisää kategoria</a>
+		<a class="btn btn-warning" href="{{base_path}}/askare/{{askare.id}}/poistakategoriat">Poista kategoriat</a>
 	</p>
 
 	<ul>
 		<li><strong>Mihin mennessä:</strong>{{askare.paivamaara}}</li>
-		<li><strong>Tilanne ja tärkeys:</strong><label class="label label-danger">?TOTEUTUS KESKEN?</label></li>
+		<li><strong>Tärkeys:</strong>
+		{%if askare.tarkeys == 0 %}
+		<label class="label label-info">Mitätön</label>
+		{% endif %}
+		{% if askare.tarkeys == 1 %}
+		<label class="label label-warning">Tärkeä</label>
+		{% endif %}
+		<li><strong>Kategoriat:</strong>{% for kategoria in kategoriat %}
+		 {{kategoria.nimi}}, 
+		 {% endfor %}
+
+		</li>
+		</li>
 	</ul>
 
 	<p>

@@ -1,14 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="alert alert-danger">
-		{{virhe}}
-		</div>
+
 <h1>Vaihda salasanasi </h1>
 <p>Pakollinen tieto *</p>
 
 <form method="post" action="{{base_path}}/kayttaja/{{kayttaja.id}}/muokkaa">
 <div class="form-group">
-	<label>Uusi salasana * (vähintään 1 merkki)</label>
+	<label>Uusi salasana * (5-25 merkkiä)</label>
 	<input type="text" name="salasana" class="form-control" value="{{kayttaja.salasana}}">
 </div>
 

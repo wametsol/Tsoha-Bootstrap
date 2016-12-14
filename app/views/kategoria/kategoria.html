@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% import "macros/forms.html" as forms %}
+{% block content %}
+
+
+<a class="btn btn-primary btn-sm" href="{{base_path}}/uusikategoria">Uusi kategoria</a>
+
+<form method="post" action="{{base_path}}/kategoria">
+<div class="form-group">
+	<label>Kategoriat</label>
+	<select class="form-control" name="kategoriat[]" multiple="">
+	{% for kategoria in kategoriat %}
+	<option value="{{kategoria.id}}">{{kategoria.nimi}}</option>
+	{% endfor %}
+	</select>
+	</div>
+
+	<div class="form-group">
+		<button type="submit" class="btn btn-danger">Poista valitut</button>
+	</div>
+	</form>
+
+{% endblock %}

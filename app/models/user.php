@@ -50,6 +50,38 @@ class User extends BaseModel{
 			
 
 		}
+		public function paivitys(){
+			
+			$query = DB::connection()->prepare('UPDATE Kayttaja SET salasana = :salasana WHERE id = :id');
+			
+			$query->execute(array('id' => $this->id,'salasana' => $this->salasana));
+			$row = $query->fetch();
+		}
+
+		public function tallennaKayttaja(){
+
+			$query = DB::connection()->prepare('INSERT INTO Kayttaja (nimi, salasana) VALUES (:nimi, :salasana) RETURNING id');
+			$query->execute(array('nimi' => $this->nimi,'salasana' => $this->salasana));
+			$row = $query->fetch();
+
+		}
+
+		public function validate(){
+			$errors = array();
+			if($this->nimi == '' || $this->nimi == null){
+				$errors[] = 'Nimi ei saa olla tyhjä!';
+			}
+			if(strlen($this->nimi) <= 3 || strlen($this->nimi) >=15){
+				$errors[] = 'Nimen oltava 3-15 merkkiä pitkä';
+			}
+			if(strlen($this->salasana) >=25 || strlen($this->salasana) <=5 ){
+				$errors[] = 'Salasanan oltava 5-25 merkkiä';
+			}
+			
+
+
+			return $errors;
+		}
 
 		
 
@@ -57,4 +89,5 @@ class User extends BaseModel{
 			
 			
 		}
+
 		
