@@ -16,9 +16,7 @@ Linkit luoduille suunnitelmille:
 
 ## Työn aihe
 
-Muistilista -
-
-Laita tähän aihekuvaus tai [linkki valmiiseen aiheeseen](http://advancedkittenry.github.io/suunnittelu_ja_tyoymparisto/aiheet/Muistilista.html) 
+[Muistilista](http://advancedkittenry.github.io/suunnittelu_ja_tyoymparisto/aiheet/Muistilista.html) 
 
 
 
