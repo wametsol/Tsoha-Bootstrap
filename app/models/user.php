@@ -71,7 +71,7 @@ class User extends BaseModel{
 			if($this->nimi == '' || $this->nimi == null){
 				$errors[] = 'Nimi ei saa olla tyhjä!';
 			}
-			if(strlen($this->nimi) <= 3 || strlen($this->nimi) >=15){
+			if(strlen($this->nimi) < 3 || strlen($this->nimi) >15){
 				$errors[] = 'Nimen oltava 3-15 merkkiä pitkä';
 			}
 			if(strlen($this->salasana) >=25 || strlen($this->salasana) <=5 ){
